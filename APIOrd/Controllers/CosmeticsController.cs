@@ -36,31 +36,35 @@ namespace APIOrd.Controllers
 
                 var jsonString = await response.Content.ReadAsStringAsync();
 
-                var apiResponse = JsonConvert.DeserializeObject<FortniteApiResponse>(jsonString);
+                var apiResponse = JsonConvert.DeserializeObject<FortResponse>(jsonString);
 
-                if (apiResponse== null)
+                if (apiResponse == null || apiResponse.data.items.Count == 0)
                 {
                     Console.WriteLine("No se encontraron cosméticos en la respuesta.");
                     return NotFound("No se encontraron cosméticos nuevos.");
                 }
 
-                
+                // Procesar los ítems de la categoría "br"
+                var cosmeticsList = apiResponse.data.items.ContainsKey("br")
+                    ? apiResponse.data.items["br"]
+                    : new List<Item>();
 
+                var result = cosmeticsList.Select(c => new
+                {
+                    c.id,
+                    c.name,
+                    c.description,
+                    Rarity = c.rarity.displayValue,
+                    Image = c.images.icon
+                }).ToList();
+
+                return Ok(result);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-            }
-
-            //return Ok(lcosmetics);
-            return Ok(apiResponse.Data.Items.Select(item => new
-            {
-                item.id,
-                item.name,
-                item.description,
-                Rarity = item.rarity.value,
-                Images = item.images.icon
-            }));
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(500, "Ocurrió un error interno.");
+            }            
         }
     }
 }
