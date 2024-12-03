@@ -96,13 +96,14 @@
             // 
             this.combobx.FormattingEnabled = true;
             this.combobx.Items.AddRange(new object[] {
-            "Rare",
+            "rare",
             "Epic",
             "Icon",
-            "Gaming Legends",
+            "Gaminglegends",
             "Common",
             "Legendary",
-            "Uncommon"});
+            "Uncommon",
+            "JAJA"});
             this.combobx.Location = new System.Drawing.Point(33, 165);
             this.combobx.Name = "combobx";
             this.combobx.Size = new System.Drawing.Size(133, 21);
@@ -119,6 +120,7 @@
             this.btnBuscar.TabIndex = 5;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // pictureBox1
             // 
@@ -147,10 +149,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(636, 81);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(623, 62);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(152, 80);
+            this.label3.Size = new System.Drawing.Size(178, 100);
             this.label3.TabIndex = 8;
             this.label3.Text = "¿Qué se mostrara?\r\n\r\nLos nuevos accesorios \r\ndisponibles en la tienda \r\nde Fortni" +
     "te";

@@ -18,7 +18,7 @@ namespace ConsumirApi.Controllers
             BaseAddress = new Uri("https://localhost:7056/")
         };
 
-        List<Cosmetics> listacos = new List<Cosmetics>();
+
 
         public async Task<List<Cosmetics>> ObtenerCosmeticsAsync()
         {
@@ -38,6 +38,32 @@ namespace ConsumirApi.Controllers
                 {
                     throw new Exception($"Error al consumir la API: {response.ReasonPhrase}");
                 }  
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<List<Cosmetics>> ObtenerPorRareza(string rarity) 
+        {
+            try
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.GetAsync($"/Cosmetics/{rarity}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var cos = JsonConvert.DeserializeObject<List<Cosmetics>>(jsonString);
+                    return cos;
+                }
+                else
+                {
+                    throw new Exception($"Error al consumir la API: {response.ReasonPhrase}");
+                }
             }
             catch (Exception ex)
             {
