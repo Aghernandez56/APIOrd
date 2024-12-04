@@ -18,8 +18,6 @@ namespace ConsumirApi.Controllers
             BaseAddress = new Uri("https://localhost:7056/")
         };
 
-
-
         public async Task<List<Cosmetics>> ObtenerCosmeticsAsync()
         {
             try
@@ -71,5 +69,9 @@ namespace ConsumirApi.Controllers
                 throw;
             }
         }
+
+        
+
+
     }
 }

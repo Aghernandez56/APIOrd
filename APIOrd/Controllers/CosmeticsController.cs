@@ -55,7 +55,7 @@ namespace APIOrd.Controllers
                     c.name,
                     c.description,
                     Rarity = c.rarity.displayValue,
-                    Image = c.images.icon
+                    Images = c.images.icon
                 }).ToList();
 
                 return Ok(result);

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ConsumirApi.Controllers;
 using ConsumirApi.Models;
+using static System.Net.Mime.MediaTypeNames;
 namespace ConsumirApi
 {
     public partial class Form1 : Form
@@ -33,6 +35,7 @@ namespace ConsumirApi
                 dgview.Columns.Add("name", "Nombre");
                 dgview.Columns.Add("description", "Descripción");
                 dgview.Columns.Add("rarity", "Rareza");
+                dgview.Columns.Add("images", "Url");
 
                 dgview.DataSource = cosmetics;
 
@@ -41,6 +44,19 @@ namespace ConsumirApi
                 dgview.Columns["name"].DataPropertyName = "name";
                 dgview.Columns["description"].DataPropertyName = "description";
                 dgview.Columns["rarity"].DataPropertyName = "rarity";
+                dgview.Columns["images"].DataPropertyName = "images";
+
+                dgview.CellClick += (s, ev) =>
+                {
+                    if (ev.RowIndex >= 0)
+                    {
+                        var iconUrl = dgview.Rows[ev.RowIndex].Cells["images"].Value?.ToString();
+                        if (!string.IsNullOrEmpty(iconUrl))
+                        {
+                            pic.Load(iconUrl); // Carga la imagen desde la URL
+                        }
+                    }
+                };
 
             }
             catch (Exception ex)
@@ -67,6 +83,7 @@ namespace ConsumirApi
             dgview.Columns.Add("name", "Nombre");
             dgview.Columns.Add("description", "Descripción");
             dgview.Columns.Add("rarity", "Rareza");
+            dgview.Columns.Add("images", "Url");
 
             dgview.DataSource = cos;
 
@@ -75,8 +92,19 @@ namespace ConsumirApi
             dgview.Columns["name"].DataPropertyName = "name";
             dgview.Columns["description"].DataPropertyName = "description";
             dgview.Columns["rarity"].DataPropertyName = "rarity";
+            dgview.Columns["images"].DataPropertyName = "images";
 
-
+            dgview.CellClick += (s, ev) =>
+            {
+                if (ev.RowIndex >= 0)
+                {
+                    var iconUrl = dgview.Rows[ev.RowIndex].Cells["images"].Value?.ToString();
+                    if (!string.IsNullOrEmpty(iconUrl))
+                    {
+                        pic.Load(iconUrl); // Carga la imagen desde la URL
+                    }
+                }
+            };
         }
     }
 }
